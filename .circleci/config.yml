@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      # start proprietary DB using private Docker image
+      # with credentials stored in the UI
+      - run: |
+        $(aws ecr get-login --no-include-email --region us-east-1)
+
+      # build the application image
+      - run: docker build -t 477309638511.dkr.ecr.us-east-1.amazonaws.com/itomaldonado/hello-world:$CIRCLE_SHA1 .
+
+      # push the image
+      - run: docker push 477309638511.dkr.ecr.us-east-1.amazonaws.com/itomaldonado/hello-world:$CIRCLE_SHA1
