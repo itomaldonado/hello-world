@@ -5,7 +5,6 @@ jobs:
   machine: true
    steps:
     - checkout
-    - run: |
-     $(aws ecr get-login --no-include-email --region us-east-1)
+    - run: $(aws ecr get-login --no-include-email --region us-east-1)
     - run: docker build -t 477309638511.dkr.ecr.us-east-1.amazonaws.com/itomaldonado/hello-world:$CIRCLE_SHA1 .
     - run: docker push 477309638511.dkr.ecr.us-east-1.amazonaws.com/itomaldonado/hello-world:$CIRCLE_SHA1
